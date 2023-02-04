@@ -1,0 +1,74 @@
+<html>
+
+<head>
+  <title>Sentiment Analysis</title>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <style>
+    #container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 50%;
+      margin: 0 auto;
+    }
+
+    #review {
+      width: 100%;
+      height: 200px;
+      padding: 10px;
+      font-size: 18px;
+    }
+
+    #submit-button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    #display {
+      width: 100%;
+      height: 200px;
+      padding: 10px;
+      font-size: 18px;
+      margin-top: 20px;
+      border: 1px solid black;
+    }
+  </style>
+
+  <script>
+    function predictSentiment() {
+      var review = $("#review").val();
+
+      $.ajax({
+        type: "POST",
+        url: "/predict",
+        data: {
+          review: review
+        },
+        success: function (result) {
+          $("#sentiment").text(result.sentiment);
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+
+
+  <div id="container">
+    <textarea id="review"></textarea>
+    <button id="submit-button" onclick="predictSentiment()">Submit</button>
+    <div id="display">
+      <p>Sentiment: <span id="sentiment"></span></p>
+    </div>
+  </div>
+
+
+
+
+
+</body>
+
+</html>
